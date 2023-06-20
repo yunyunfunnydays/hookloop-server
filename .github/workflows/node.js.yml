@@ -24,14 +24,7 @@ jobs:
     - run: yarn
     - run: yarn build
     
-    - name: Copy files to EC2
-      uses: appleboy/scp-action@master
-      with:
-        host: ${{ secrets.HOST_DNS }}
-        username: ${{ secrets.USERNAME }}
-        key: ${{ secrets.EC2_SSH_KEY }}
-        source: "dist/"  # Assuming your build outputs to "dist" directory
-        target: "~/hookloop-server"
+   
         
     - name: Updating Code from Github Actions
       uses: appleboy/ssh-action@master
