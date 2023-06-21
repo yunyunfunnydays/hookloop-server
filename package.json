@@ -10,7 +10,9 @@
     "dev": "nodemon src/server.ts",
     "build:dev": "tsc",
     "build": "cross-env tsc",
-    "start": "cross-env NODE_ENV=production TS_NODE_BASEURL=./dist node -r tsconfig-paths/register dist/server.js",
+    "postbuild": "tsc-alias",
+    "start": "cross-env NODE_ENV=production TS_NODE_BASEURL=./dist node dist/server.js",
+    "pm2start": "pm2 start ecosystem.config.json",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --fix --ext .ts",
     "lint-staged": "lint-staged",
@@ -78,6 +80,7 @@
     "nodemon": "^2.0.22",
     "prettier": "^2.8.7",
     "ts-node": "^10.9.1",
+    "tsc-alias": "^1.8.6",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.0.4"
   },
