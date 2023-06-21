@@ -40,5 +40,6 @@ jobs:
         key: ${{ secrets.EC2_SSH_KEY }}
         script: |
             cd ~/hookloop-server
+            git pull
             yarn
             yarn pm2start 
