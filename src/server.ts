@@ -8,7 +8,7 @@ import app from "./app";
 mongoose
   .connect(process.env.MONGO_DB_URI!)
   .then(() => {
-    console.log("githubaction success2!");
+    console.log("githubaction success3!");
     console.log("MongoDB is running!");
     const server = app.listen(process.env.PORT!, () => {
       console.log("Server is running again!", process.env.PORT);
