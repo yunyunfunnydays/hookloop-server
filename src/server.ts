@@ -6,6 +6,8 @@ import app from "./app";
 
 // Connect mongoDB
 console.log("Environment Variable for MongoDB:", process.env.MONGO_DB_URI);
+console.log("PORT", process.env.PORT);
+console.log("JWT_EXPIRE_IN", process.env.JWT_EXPIRE_IN);
 mongoose
   .connect(process.env.MONGO_DB_URI!)
   .then(() => {
