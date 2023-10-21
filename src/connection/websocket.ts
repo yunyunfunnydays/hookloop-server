@@ -21,7 +21,7 @@ export default function runWebSocket(server: any) {
         switch (type) {
           case "enterKanban":
             websocketHelper.setClientWSToGroup(type, id, ws);
-            // 此處只利用 ws 訊息來建立群組，做為要將ws傳給哪些使用者的依據：當 client 進入看板，用 kanbanId 建立一個群組(array)， 並將 ws 寫入 array，其他使用者若也進入此 kanban，則也將其 ws寫入同個 Kanban array，就可以記錄有哪些 client(ws) 同時在該 kanban
+            // 此處只利用 ws 訊息來建立群組，做為要將ws傳給哪些使用者的依據：當 client 進入看板，用 kanbanId(id) 建立一個群組(array)， 並將 ws 寫入 array，其他使用者若也進入此 kanban，則也將其 ws寫入同個 Kanban array，就可以記錄有哪些 client(ws) 同時在該 kanban
             // 後續要傳訊息給 client 時就可拿群組做 forEach 將訊息傳給在同個 kanban 的每個 client(ws)
             break;
           case "leaveKanban":

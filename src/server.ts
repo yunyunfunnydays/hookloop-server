@@ -5,7 +5,6 @@ import runWebSocket from "@/connection/websocket";
 import app from "./app";
 
 // Connect mongoDB
-console.log("Environment Variable for MongoDB:", process.env.MONGO_DB_URI);
 mongoose
   .connect(process.env.MONGO_DB_URI!)
   .then(() => {
