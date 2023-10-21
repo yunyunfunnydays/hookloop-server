@@ -111,7 +111,7 @@ const paymentNotify = async (req: Request, res: Response, next: NextFunction) =>
 };
 
 const paymentReturn = async (req: Request, res: Response) => {
-  console.log("🚀 ", req, res);
+  console.log("🚀 paymentReturn", req, res);
   //   const { Result } = req.returnInfo;
   //   res.status(StatusCode.OK).json(Result);
   //   res.redirect(`/plan?targetPlan=${targetTradeRecord.name}`);
