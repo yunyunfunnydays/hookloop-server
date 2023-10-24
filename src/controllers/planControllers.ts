@@ -115,6 +115,28 @@ const paymentReturn = async (req: Request, res: Response) => {
   //   const { Result } = req.returnInfo;
   //   res.status(StatusCode.OK).json(Result);
   //   res.redirect(`/plan?targetPlan=${targetTradeRecord.name}`);
+  const { PAY_HASH_IV, PAY_HASH_KEY } = process.env;
+  console.log("-------------------------- 藍新金流 Return ---------------------------");
+
+  // 解密資料，核對 產品編號是否一致
+  const key = CryptoJS.enc.Utf8.parse(PAY_HASH_KEY!); // 先轉成 CryptoJS 可接受加密格式：WordArray
+  const iv = CryptoJS.enc.Utf8.parse(PAY_HASH_IV!);
+  const ciphertext = CryptoJS.enc.Hex.parse(`${req.body.TradeInfo}`);
+  const decrypted = CryptoJS.AES.decrypt({ ciphertext } as CryptoJS.lib.CipherParams, key, {
+    iv,
+    padding: CryptoJS.pad.Pkcs7,
+  });
+  const decryptedWithoutPadding = CryptoJS.enc.Utf8.stringify(decrypted).replace(/\0+$/, "");
+  const returnInfo = JSON.parse(decodeURIComponent(decryptedWithoutPadding));
+  console.log("🚀 ~ file: index.ts:25 ~ paymentReturn ~ returnInfo:", returnInfo);
+  const url = `/plan?Status=${returnInfo.Status}&MerchantOrderNo=${returnInfo.Result.MerchantOrderNo}&PaymentType=${returnInfo.Result.PaymentType}&PayTime=${returnInfo.Result.PayTime}&Amt=${returnInfo.Result.Amt}&ItemDesc=${returnInfo.Result.ItemDesc}`;
+
+  // 完成後進行重定向
+  res.writeHead(302, {
+    Location: encodeURI(url), // 指定前端頁面的路徑
+    "Content-Type": "text/html",
+  });
+  res.end();
 };
 
 export default {
